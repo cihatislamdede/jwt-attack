@@ -1,16 +1,14 @@
-const jwt = require("jsonwebtoken");
 const express = require("express");
+const crypto = require("crypto");
 
 const app = express();
 app.use(express.json());
 const port = 3000;
 
 const header = {
-  alg: "HS256",
+  alg: "none",
   typ: "JWT",
 };
-
-const SECRET = "verysecretkey";
 
 const posts = [
   {
@@ -30,8 +28,10 @@ const posts = [
   },
 ];
 
-function create_jwt_token(header, payload, key) {
-  return jwt.sign(payload, key, { header: header, expiresIn: "1w" });
+function create_jwt_token(header, payload) {
+  var encoded_header = Buffer.from(JSON.stringify(header)).toString("base64").replace(/=/g, "");
+  var encoded_payload = Buffer.from(JSON.stringify(payload)).toString("base64").replace(/=/g, "");
+  var signature = crypto.createHash("sha256").update(encoded_header + "." + encoded_payload).digest("base64").replace(/=/g, "");
 }
 
 app.get("/", (req, res) => {
@@ -81,15 +81,15 @@ app.post("/login", (req, res) => {
   var payload = {
     username: username,
     password: password,
-    isAdmin: true,
+    isAdmin: false,
   };
 
   if (username == "admin" && password == "admin") {
     payload.isAdmin = true;
-    var token = create_jwt_token(header, payload, SECRET);
+    var token = create_jwt_token(header, payload);
     res.send(token);
   } else if (username == "user" && password == "user") {
-    var token = create_jwt_token(header, payload, SECRET);
+    var token = create_jwt_token(header, payload);
     res.send(token);
   } else {
     res.send("Invalid username or password");
@@ -99,40 +99,13 @@ app.post("/login", (req, res) => {
 app.get("/posts", (req, res) => {
   var token = req.headers.authorization;
   if (token) {
-    try {
-      const decoded = jwt.decode(token, { complete: true });
-      console.log(decoded);
+    if (verify_jwt_token(token, SECRET)) {
       res.send(posts);
-    } catch (err) {
+    } else {
       res.send("Invalid token");
     }
   } else {
-    res.send("Missing token!");
-  }
-});
-
-app.delete("/posts/:id", (req, res) => {
-  var token = req.headers.authorization;
-  if (token) {
-    const decoded = jwt.decode(token, { complete: true });
-    if (decoded.payload.isAdmin) {
-      var id = req.params.id;
-      var post = posts.find((post) => post.id == id);
-      if (post) {
-        try {
-          posts.splice(id - 1, 1);
-          res.send(`Post ${id} deleted`);
-        } catch (e) {
-          res.send("Post not found");
-        }
-      } else {
-        res.send("Post not found");
-      }
-    } else {
-      res.send("You are not an admin");
-    }
-  } else {
-    res.send("Missing token!");
+    res.send("Missing token");
   }
 });
 

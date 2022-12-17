@@ -78,20 +78,17 @@ app.post("/login", (req, res) => {
     return res.send("Username or password is empty");
   }
 
+  var payload = {
+    username: username,
+    password: password,
+    isAdmin: true,
+  };
+
   if (username == "admin" && password == "admin") {
-    var payload = {
-      username: username,
-      password: password,
-      isAdmin: true,
-    };
+    payload.isAdmin = true;
     var token = create_jwt_token(header, payload, SECRET);
     res.send(token);
   } else if (username == "user" && password == "user") {
-    var payload = {
-      username: username,
-      password: password,
-      isAdmin: false,
-    };
     var token = create_jwt_token(header, payload, SECRET);
     res.send(token);
   } else {
