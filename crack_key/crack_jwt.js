@@ -23,7 +23,7 @@ function crack_jwt(token, worldlist_file) {
 app.get("/", (req, res) => {
   res.send(`
   <!DOCTYPE html>
-  <form action="/upload" method="POST" enctype="multipart/form-data">
+  <form action="/crack" method="POST" enctype="multipart/form-data">
       <input type="text" name="token" placeholder="token" />
       <br />
       <input type="file" name="worldlist" accept=".txt"/>
@@ -44,7 +44,7 @@ app.post("/crack", (req, res) => {
       const key = crack_jwt(token, `./commons/${worldlist.name}`);
       res.send(`
       <!DOCTYPE html>
-      <h2>Secret Key:<i>${key}</i></h2>
+      <h2>Secret Key: <i>${key}</i></h2>
       `);
     }
   });

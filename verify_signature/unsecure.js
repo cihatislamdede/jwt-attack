@@ -81,7 +81,7 @@ app.post("/login", (req, res) => {
   var payload = {
     username: username,
     password: password,
-    isAdmin: true,
+    isAdmin: false,
   };
 
   if (username == "admin" && password == "admin") {
