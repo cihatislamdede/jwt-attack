@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const HEADER = {
   alg: "HS256",
   typ: "JWT",
@@ -21,12 +23,12 @@ function intiliazeDB(db) {
     db.run(
       "CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, image TEXT)"
     );
-    // db.run(
-    //   "INSERT INTO users (username, password, isAdmin) VALUES ('admin', 'admin', 1)"
-    // );
-    // db.run(
-    //   "INSERT INTO users (username, password, isAdmin) VALUES ('user', 'user', 0)"
-    // );
+    db.run(
+      "INSERT INTO users (username, password, isAdmin) VALUES ('admin', 'admin', 1)"
+    );
+    db.run(
+      "INSERT INTO users (username, password, isAdmin) VALUES ('user', 'user', 0)"
+    );
     db.run(
       "INSERT INTO posts (title, description, image) VALUES ('Post 1', 'Post 1 description', 'https://images.unsplash.com/photo-1671394507023-76c50b824053?crop=entropy&fit=crop&fm=jpg&h=800&q=80&w=800')"
     );
@@ -39,8 +41,9 @@ function intiliazeDB(db) {
   });
 }
 
-function crack_jwt(token, worldlist_file) {
+function crack_jwt(jwt, token, worldlist_file) {
   const worldlist = fs.readFileSync(worldlist_file, "utf8").split("\r\n");
+  console.log(worldlist);
   for (let i = 0; i < worldlist.length; i++) {
     try {
       jwt.verify(token, worldlist[i]);

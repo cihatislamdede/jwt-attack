@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const fileUpload = require("express-fileupload");
-const fs = require("fs");
 const utils = require("./utils");
 
 const app = express();
@@ -15,14 +14,14 @@ const db = new sqlite3.Database("./db.sqlite3", (err) => {
     console.error(err.message);
   }
   console.log("Connected to the database.");
-  utils.intiliazeDB(db);
+  //utils.intiliazeDB(db);
 });
 
 // to get JWT token
 app.post("/login", (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
-  var isWeak = req.body.isWeak;
+  var isWeak = req.body.isWeak
 
   if (!username || !password) {
     return res.status(401).send("Username or password is empty!");
@@ -167,12 +166,20 @@ app.post("/crack-secret", (req, res) => {
   const token = req.body.token;
   const worldlist = req.files.worldlist;
 
+  if (!token) {
+    return res.status(400).send("Token is empty!");
+  }
+  if (!worldlist) {
+    return res.status(400).send("Worldlist is empty!");
+  }
+
   worldlist.mv(`./jwt_secrets/${worldlist.name}`, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send("Internal server error!");
     } else {
-      const key = utils.crack_jwt(token, `./jwt_secrets/${worldlist.name}`);
+      const key = utils.crack_jwt(jwt, token, `./jwt_secrets/${worldlist.name}`);
+      console.log(key);
       if (!key) {
         return res.status(404).send("Key not found!");
       }
