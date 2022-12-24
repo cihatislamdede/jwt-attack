@@ -3,7 +3,7 @@ const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const fileUpload = require("express-fileupload");
 const utils = require("./utils");
-var cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
@@ -23,9 +23,9 @@ const db = new sqlite3.Database("./db.sqlite3", (err) => {
 
 // to get JWT token
 app.post("/login", (req, res) => {
-  var username = req.body.username;
-  var password = req.body.password;
-  var is_secure = req.body.is_secure === undefined ? true : req.body.is_secure;
+  const username = req.body.username;
+  const password = req.body.password;
+  const is_secure = req.body.is_secure === undefined ? true : req.body.is_secure;
 
   if (!username || !password) {
     return res.status(401).send("Username or password is empty!");
@@ -39,11 +39,11 @@ app.post("/login", (req, res) => {
         return res.status(500).send("Internal server error!");
       }
       if (row) {
-        var payload = {
+        const payload = {
           username: username,
           isAdmin: row.isAdmin,
         };
-        var token = utils.create_jwt_token(
+        const token = utils.create_jwt_token(
           jwt,
           utils.HEADER,
           payload,
@@ -67,7 +67,7 @@ app.post("/login", (req, res) => {
 
 // SECURE WAY
 app.get("/verify-decode/secure/posts", (req, res) => {
-  var token = req.headers.authorization.split(" ")[1];
+  const token = req.headers.authorization.split(" ")[1];
   if (token) {
     jwt.verify(
       token,
@@ -92,8 +92,8 @@ app.get("/verify-decode/secure/posts", (req, res) => {
 });
 
 app.delete("/verify-decode/secure/posts/:id", (req, res) => {
-  var token = req.headers.authorization.split(" ")[1];
-  if (token) {
+  const token = req.headers.authorization.split(" ")[1];
+if (token) {
     jwt.verify(
       token,
       utils.SECURE_SECRET_KEY,
@@ -103,7 +103,7 @@ app.delete("/verify-decode/secure/posts/:id", (req, res) => {
           res.status(401).send("Invalid token!");
         } else {
           if (decoded.isAdmin) {
-            var id = req.params.id;
+            const id = req.params.id;
             db.get("SELECT * FROM posts WHERE id = ?", [id], (err, row) => {
               if (err) {
                 return res.status(500).send("Internal server error!");
@@ -132,7 +132,7 @@ app.delete("/verify-decode/secure/posts/:id", (req, res) => {
 
 // UNSECURE WAY
 app.get("/verify-decode/unsecure/posts", (req, res) => {
-  var token = req.headers.authorization.split(" ")[1];
+  const token = req.headers.authorization.split(" ")[1];
   if (token) {
     try {
       jwt.decode(token, { complete: true });
@@ -151,11 +151,11 @@ app.get("/verify-decode/unsecure/posts", (req, res) => {
 });
 
 app.delete("/verify-decode/unsecure/posts/:id", (req, res) => {
-  var token = req.headers.authorization.split(" ")[1];
+  const token = req.headers.authorization.split(" ")[1];
   if (token) {
     const decoded = jwt.decode(token, { complete: true });
     if (decoded.payload.isAdmin) {
-      var id = req.params.id;
+      const id = req.params.id;
       db.get("SELECT * FROM posts WHERE id = ?", [id], (err, row) => {
         if (err) {
           return res.status(500).send("Internal server error!");
@@ -183,7 +183,7 @@ app.delete("/verify-decode/unsecure/posts/:id", (req, res) => {
 // When the HMAC symmetric signing algorithms are used these can be cracked offline using a variety of simple CPU cracking tools,
 // or plugged into a GPU-powered brute-force cracking rig. Also with wordlists, rainbow tables, and other offline cracking techniques.
 app.post("/crack-secret", (req, res) => {
-  var token = req.headers.authorization.split(" ")[1];
+  const token = req.body.token;
   const wordlist = req.files.wordlist;
 
   if (!token) {
