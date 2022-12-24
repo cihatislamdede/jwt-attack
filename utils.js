@@ -14,7 +14,7 @@ function create_jwt_token(jwt, header, payload, key) {
 
 const PORT = 3000;
 
-function intiliazeDB(db) {
+function initialize(db) {
   db.serialize(() => {
     db.run(
       "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, isAdmin INTEGER)"
@@ -59,6 +59,6 @@ module.exports = {
   SECURE_SECRET_KEY,
   PORT,
   create_jwt_token,
-  intiliazeDB,
+  initialize,
   crack_jwt,
 };

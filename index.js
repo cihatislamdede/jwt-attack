@@ -15,7 +15,7 @@ const db = new sqlite3.Database("./db.sqlite3", (err) => {
   }
   console.log("Connected to the database.");
   // Uncomment this line to initialize the database
-  //utils.intiliazeDB(db); 
+  //utils.initialize(db);
 });
 
 // to get JWT token
