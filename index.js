@@ -22,7 +22,7 @@ const db = new sqlite3.Database("./db.sqlite3", (err) => {
 app.post("/login", (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
-  var isSecure = req.body.isSecure === undefined ? true : req.body.isSecure;
+  var is_secure = req.body.is_secure === undefined ? true : req.body.is_secure;
 
   if (!username || !password) {
     return res.status(401).send("Username or password is empty!");
@@ -44,7 +44,7 @@ app.post("/login", (req, res) => {
           jwt,
           utils.HEADER,
           payload,
-          isSecure ? utils.SECURE_SECRET_KEY : utils.SECRET_KEY
+          is_secure ? utils.SECURE_SECRET_KEY : utils.SECRET_KEY
         );
         return res.status(200).send(token);
       } else {
