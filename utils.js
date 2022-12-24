@@ -6,14 +6,15 @@ const HEADER = {
 };
 
 const SECRET_KEY = "verysecretkey";
-const SECURE_SECRET_KEY = "6b21c17bec069571d2abbd2a2d9abd22eb0105c4bcfb2393b93cfc217b5160ef"; // sha256 hash of "y0ucann0tcrackth1spassw0rd"
+const SECURE_SECRET_KEY =
+  "6b21c17bec069571d2abbd2a2d9abd22eb0105c4bcfb2393b93cfc217b5160ef"; // sha256 hash of "y0ucann0tcrackth1spassw0rd"
 
 function create_jwt_token(jwt, header, payload, key) {
+  console.log("Creating JWT token with key: " + key);
   return jwt.sign(payload, key, { header: header, expiresIn: "1w" });
 }
 
 const PORT = 3000;
-
 
 function intiliazeDB(db) {
   db.serialize(() => {
@@ -61,7 +62,5 @@ module.exports = {
   create_jwt_token,
   PORT,
   intiliazeDB,
-  crack_jwt
+  crack_jwt,
 };
-
-
