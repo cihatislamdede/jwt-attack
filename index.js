@@ -3,10 +3,13 @@ const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const fileUpload = require("express-fileupload");
 const utils = require("./utils");
+var cors = require("cors");
 
 const app = express();
 app.use(express.json());
 app.use(fileUpload());
+app.use(cors());
+
 const port = utils.PORT;
 
 const db = new sqlite3.Database("./db.sqlite3", (err) => {
