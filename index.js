@@ -64,7 +64,7 @@ app.post("/login", (req, res) => {
 
 // SECURE WAY
 app.get("/verify-decode/secure/posts", (req, res) => {
-  var token = req.headers.authorization;
+  var token = req.headers.authorization.split(" ")[1];
   if (token) {
     jwt.verify(
       token,
@@ -89,7 +89,7 @@ app.get("/verify-decode/secure/posts", (req, res) => {
 });
 
 app.delete("/verify-decode/secure/posts/:id", (req, res) => {
-  var token = req.headers.authorization;
+  var token = req.headers.authorization.split(" ")[1];
   if (token) {
     jwt.verify(
       token,
@@ -129,7 +129,7 @@ app.delete("/verify-decode/secure/posts/:id", (req, res) => {
 
 // UNSECURE WAY
 app.get("/verify-decode/unsecure/posts", (req, res) => {
-  var token = req.headers.authorization;
+  var token = req.headers.authorization.split(" ")[1];
   if (token) {
     try {
       jwt.decode(token, { complete: true });
@@ -148,7 +148,7 @@ app.get("/verify-decode/unsecure/posts", (req, res) => {
 });
 
 app.delete("/verify-decode/unsecure/posts/:id", (req, res) => {
-  var token = req.headers.authorization;
+  var token = req.headers.authorization.split(" ")[1];
   if (token) {
     const decoded = jwt.decode(token, { complete: true });
     if (decoded.payload.isAdmin) {
@@ -180,7 +180,7 @@ app.delete("/verify-decode/unsecure/posts/:id", (req, res) => {
 // When the HMAC symmetric signing algorithms are used these can be cracked offline using a variety of simple CPU cracking tools,
 // or plugged into a GPU-powered brute-force cracking rig. Also with wordlists, rainbow tables, and other offline cracking techniques.
 app.post("/crack-secret", (req, res) => {
-  const token = req.body.token;
+  var token = req.headers.authorization.split(" ")[1];
   const worldlist = req.files.worldlist;
 
   if (!token) {
