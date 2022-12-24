@@ -14,23 +14,19 @@ const db = new sqlite3.Database("./db.sqlite3", (err) => {
     console.error(err.message);
   }
   console.log("Connected to the database.");
-  //utils.intiliazeDB(db); // Uncomment this line to initialize the database
+  // Uncomment this line to initialize the database
+  //utils.intiliazeDB(db); 
 });
 
 // to get JWT token
 app.post("/login", (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
-  var isSecure = req.body.isSecure || false;
+  var isSecure = req.body.isSecure === undefined ? true : req.body.isSecure;
 
   if (!username || !password) {
     return res.status(401).send("Username or password is empty!");
   }
-
-  var payload = {
-    username: username,
-    isAdmin: false,
-  };
 
   db.get(
     "SELECT * FROM users WHERE username = ? AND password = ?",
@@ -40,7 +36,10 @@ app.post("/login", (req, res) => {
         return res.status(500).send("Internal server error!");
       }
       if (row) {
-        payload.isAdmin = row.isAdmin;
+        var payload = {
+          username: username,
+          isAdmin: row.isAdmin,
+        };
         var token = utils.create_jwt_token(
           jwt,
           utils.HEADER,
@@ -56,7 +55,6 @@ app.post("/login", (req, res) => {
 });
 
 // ### ATTACK 1: JWT token can be modified and still be valid ###
-// Many JWT libraries provide one method to decode the token and another to verify it:
 // decode(): Only decodes the token from base64url encoding without verifying the signature.
 // verify(): Decodes the token and verifies the signature.
 // Sometimes developers might mix up these methods.
@@ -194,11 +192,9 @@ app.post("/crack-secret", (req, res) => {
 
   worldlist.mv(`./user_files/${worldlist.name}`, (err) => {
     if (err) {
-      console.log(err);
       res.status(500).send("Internal server error!");
     } else {
       const key = utils.crack_jwt(jwt, token, `./user_files/${worldlist.name}`);
-      console.log(key);
       if (!key) {
         return res.status(404).send("Key not found!");
       }

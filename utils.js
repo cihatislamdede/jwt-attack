@@ -6,11 +6,9 @@ const HEADER = {
 };
 
 const SECRET_KEY = "verysecretkey";
-const SECURE_SECRET_KEY =
-  "6b21c17bec069571d2abbd2a2d9abd22eb0105c4bcfb2393b93cfc217b5160ef"; // sha256 hash of "y0ucann0tcrackth1spassw0rd"
+const SECURE_SECRET_KEY = "6b21c17bec069571d2abbd2a2d9abd22eb0105c4bcfb2393b93cfc217b5160ef"; // sha256 hash of "y0ucann0tcrackth1spassw0rd"
 
 function create_jwt_token(jwt, header, payload, key) {
-  console.log("Creating JWT token with key: " + key);
   return jwt.sign(payload, key, { header: header, expiresIn: "1w" });
 }
 
@@ -44,10 +42,10 @@ function intiliazeDB(db) {
 
 function crack_jwt(jwt, token, worldlist_file) {
   const worldlist = fs.readFileSync(worldlist_file, "utf8").split("\r\n");
-  console.log(worldlist);
   for (let i = 0; i < worldlist.length; i++) {
     try {
       jwt.verify(token, worldlist[i]);
+      console.log("JWT token cracked!");
       return worldlist[i];
     } catch (err) {
       continue;
@@ -59,8 +57,8 @@ module.exports = {
   HEADER,
   SECRET_KEY,
   SECURE_SECRET_KEY,
-  create_jwt_token,
   PORT,
+  create_jwt_token,
   intiliazeDB,
   crack_jwt,
 };
