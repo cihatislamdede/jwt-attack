@@ -19,7 +19,7 @@ export default function LoginPage() {
       body: JSON.stringify({
         username: document.getElementById("username").value,
         password: document.getElementById("password").value,
-        isSecure: document.getElementById("issecure").checked,
+        is_secure: document.getElementById("issecure").checked,
       }),
     });
     const text = await response.text();
