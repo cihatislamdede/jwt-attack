@@ -184,20 +184,20 @@ app.delete("/verify-decode/unsecure/posts/:id", (req, res) => {
 // or plugged into a GPU-powered brute-force cracking rig. Also with wordlists, rainbow tables, and other offline cracking techniques.
 app.post("/crack-secret", (req, res) => {
   var token = req.headers.authorization.split(" ")[1];
-  const worldlist = req.files.worldlist;
+  const wordlist = req.files.wordlist;
 
   if (!token) {
     return res.status(400).send("Token is empty!");
   }
-  if (!worldlist) {
-    return res.status(400).send("Worldlist is empty!");
+  if (!wordlist) {
+    return res.status(400).send("Wordlist is empty!");
   }
 
-  worldlist.mv(`./user_files/${worldlist.name}`, (err) => {
+  wordlist.mv(`./user_files/${wordlist.name}`, (err) => {
     if (err) {
       res.status(500).send("Internal server error!");
     } else {
-      const key = utils.crack_jwt(jwt, token, `./user_files/${worldlist.name}`);
+      const key = utils.crack_jwt(jwt, token, `./user_files/${wordlist.name}`);
       if (!key) {
         return res.status(404).send("Key not found!");
       }

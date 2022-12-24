@@ -54,7 +54,9 @@ export default function LoginPage() {
               />
               <div className="flex flex-row justify-center align-middle">
                 <input className="w-4" type={"checkbox"} id={"issecure"} />
-                <label className="text-3xl mx-2" htmlFor={"issecure"}>Secure</label>
+                <label className="text-3xl mx-2" htmlFor={"issecure"}>
+                  Secure
+                </label>
               </div>
               <button
                 className="m-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -71,12 +73,14 @@ export default function LoginPage() {
               ) : null}
             </div>
           </form>
-          <button
-            className="m-3 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            <Link to={`/`}>Go Back</Link>
-          </button>
+          <Link to={`/`}>
+            <button
+              className="m-3 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Go Back
+            </button>
+          </Link>
         </div>
       </div>
     </div>
