@@ -28,21 +28,21 @@ export default function LoginPage() {
     localStorage.setItem("token", text);
   };
   return (
-    <div className="flex min-h-screen text-center mx-auto">
-      <div className="flex-1 flex flex-row">
+    <div className="flex flex-col h-screen justify-items-center text-center w-full bg-slate-800 mx-auto text-gray-200">
+      <div className="my-auto">
         <div className="justify-center align-middle my-auto">
           <h1 className="text-5xl font-bold">Login</h1>
-          <form className="mt-4 w-1/2 mx-auto text-4xl">
+          <form className="mt-4 w-36 md:w-64 mx-auto text-2xl">
             <div>
               <input
-                className="mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="placeholder:text-center mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder="Username"
                 id="username"
               />
 
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="placeholder:text-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="password"
                 placeholder="Password"
                 id="password"
@@ -54,7 +54,7 @@ export default function LoginPage() {
               />
               <div className="flex flex-row justify-center align-middle">
                 <input className="w-4" type={"checkbox"} id={"issecure"} />
-                <label className="text-3xl mx-2" htmlFor={"issecure"}>
+                <label className="text-2xl mx-2" htmlFor={"issecure"}>
                   Secure
                 </label>
               </div>

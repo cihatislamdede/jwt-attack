@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function VerifyDecodeSecurePage() {
   const [posts, setPosts] = useState([]);
@@ -7,6 +8,10 @@ export default function VerifyDecodeSecurePage() {
     const sendRequest = async () => {
       try {
         const token = localStorage.getItem("token");
+        if (!token) {
+          alert("You are not authorized to view this page");
+          return;
+        }
         const res = await fetch(
           "http://localhost:3000/verify-decode/secure/posts",
           {
@@ -40,8 +45,8 @@ export default function VerifyDecodeSecurePage() {
     sendRequest();
   }, []);
   return (
-    <div className="flex min-h-screen text-center mx-auto">
-      <div className="flex-1 flex flex-col my-auto">
+    <div className="flex flex-col h-screen justify-items-center text-center w-full bg-slate-800 mx-auto text-gray-200">
+      <div className="flex flex-row my-auto gap-x-4 mx-auto py-2">
         {
           //display posts id title description image
           posts.map((post) => (
@@ -49,7 +54,7 @@ export default function VerifyDecodeSecurePage() {
               <h1>{post.title}</h1>
               <p>{post.description}</p>
               <img
-                className="w-64 h-64 rounded-md"
+                className="rounded-2xl aspect-square max-h-96 px-2"
                 src={post.image}
                 alt={post.title}
               />
@@ -57,7 +62,7 @@ export default function VerifyDecodeSecurePage() {
                 //display delete button if user is admin
                 isAdmin && (
                   <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2"
                     onClick={async () => {
                       try {
                         const token = localStorage.getItem("token");
@@ -87,7 +92,15 @@ export default function VerifyDecodeSecurePage() {
             </div>
           ))
         }
-      </div>
+      </div>{" "}
+      <Link to={`/`}>
+        <button
+          className="m-3 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="button"
+        >
+          Go Back
+        </button>
+      </Link>
     </div>
   );
 }

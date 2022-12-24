@@ -35,7 +35,7 @@ function initialize(db) {
       "INSERT INTO posts (title, description, image) VALUES ('Post 2', 'Post 2 description', 'https://images.unsplash.com/photo-1669327195331-cd47e0d5eef0?crop=entropy&fit=crop&fm=jpg&h=800&q=80&w=800')"
     );
     db.run(
-      "INSERT INTO posts (title, description, image) VALUES ('Post 3', 'Post 3 description', 'https://images.unsplash.com/photo-1671394507023-76c50b824053?crop=entropy&fit=crop&fm=jpg&h=800&q=80&w=800')"
+      "INSERT INTO posts (title, description, image) VALUES ('Post 3', 'Post 3 description', 'https://images.unsplash.com/photo-1669569713128-b50dd2eacf32?crop=entropy&fit=crop&fm=jpg&h=800&q=80&w=800')"
     );
   });
 }
