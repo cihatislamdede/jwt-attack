@@ -9,7 +9,7 @@ export default function VerifyDecodeUnsecurePage() {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          alert("You are not authorized to view this page");
+          alert("Please login to view this page");
           return;
         }
         const res = await fetch(
