@@ -51,7 +51,7 @@ export default function RootPage() {
         <br />
         19011009 - Özkan Özeşme
         <br />
-        19011609 - Mehmet Celal Keleş 19011046
+        19011609 - Mehmet Celal Keleş
         <br />
         19011046 - Burak Erdilli
       </p>

@@ -71,6 +71,7 @@ app.get("/verify-decode/secure/posts", (req, res) => {
       utils.CURRENT_KEY,
       { algorithms: ["HS256"] },
       (err, decoded) => {
+        console.log(decoded);
         if (err) {
           res.status(401).send("Invalid token!");
         } else {
@@ -201,25 +202,6 @@ app.post("/crack-secret", (req, res) => {
       res.status(200).send(key);
     }
   });
-});
-
-app.post("/create_token", (req, res) => {
-  const header = req.body.header;
-  const payload = req.body.payload;
-  const secret = req.body.secret;
-
-  if (!header) {
-    return res.status(400).send("Header is empty!");
-  }
-  if (!payload) {
-    return res.status(400).send("Payload is empty!");
-  }
-  if (!secret) {
-    return res.status(400).send("Secret is empty!");
-  }
-
-  const token = utils.create_jwt_token(jwt, header, payload, secret);
-  res.status(200).send(token);
 });
 
 app.listen(utils.PORT, () => {

@@ -8,8 +8,8 @@ const HEADER = {
 const SECRET_KEY = "verysecretkey";
 const SECURE_SECRET_KEY = "6b21c17bec069571d2abbd2a2d9abd22eb0105c4bcfb2393b93cfc217b5160ef"; // sha256 hash of "y0ucann0tcrackth1spassw0rd"
 
-//let CURRENT_KEY = SECRET_KEY;
-let CURRENT_KEY = SECURE_SECRET_KEY;
+let CURRENT_KEY = SECRET_KEY;
+//let CURRENT_KEY = SECURE_SECRET_KEY;
 
 function create_jwt_token(jwt, header, payload, key) {
   return jwt.sign(payload, key, { header: header, expiresIn: "1w" });
@@ -48,7 +48,6 @@ function crack_jwt(jwt, token, worldlist_file) {
   for (let i = 0; i < worldlist.length; i++) {
     try {
       jwt.verify(token, worldlist[i]);
-      console.log("JWT token cracked!");
       return worldlist[i];
     } catch (err) {
       continue;
