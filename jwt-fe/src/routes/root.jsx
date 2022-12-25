@@ -16,6 +16,7 @@ export default function RootPage() {
             <Link to={`login`}>Login</Link>
           </button>
         </div>
+        <p className="font-semibold text-lg italic">ATTACK 1</p>
         <button
           type="button"
           className="py-2 px-4 text-2xl font-medium bg-transparent rounded border dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-green-700 dark:focus:bg-gray-700 transition-all"
@@ -28,16 +29,18 @@ export default function RootPage() {
         >
           <Link to={`verify-unsecure`}>Verify Decode Unsecure</Link>
         </button>
+        <p className="font-semibold text-lg italic">ATTACK 2</p>
         <button
           type="button"
           className="py-2 px-4 text-2xl font-medium bg-transparent rounded border dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-orange-700 dark:focus:bg-gray-700 transition-all"
         >
           <Link to={`crack`}>Crack Secret</Link>
         </button>
+        <p className="font-semibold text-lg italic  mt-8">DEBUGGER</p>
         <a href="https://jwt.io/#debugger-io" target="_blank" rel="noreferrer">
           <button
             type="button"
-            className="py-2 mt-8 px-4 text-2xl font-medium bg-transparent rounded border dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-blue-700 dark:focus:bg-gray-700 transition-all"
+            className="py-2 px-4 text-2xl font-medium bg-transparent rounded border dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-blue-700 dark:focus:bg-gray-700 transition-all"
           >
             JWT IO
           </button>

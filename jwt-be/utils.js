@@ -8,6 +8,9 @@ const HEADER = {
 const SECRET_KEY = "verysecretkey";
 const SECURE_SECRET_KEY = "6b21c17bec069571d2abbd2a2d9abd22eb0105c4bcfb2393b93cfc217b5160ef"; // sha256 hash of "y0ucann0tcrackth1spassw0rd"
 
+//let CURRENT_KEY = SECRET_KEY;
+let CURRENT_KEY = SECURE_SECRET_KEY;
+
 function create_jwt_token(jwt, header, payload, key) {
   return jwt.sign(payload, key, { header: header, expiresIn: "1w" });
 }
@@ -58,6 +61,7 @@ module.exports = {
   SECRET_KEY,
   SECURE_SECRET_KEY,
   PORT,
+  CURRENT_KEY,
   create_jwt_token,
   initialize,
   crack_jwt,

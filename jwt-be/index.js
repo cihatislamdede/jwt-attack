@@ -10,8 +10,6 @@ app.use(express.json());
 app.use(fileUpload());
 app.use(cors());
 
-const port = utils.PORT;
-
 const db = new sqlite3.Database("./db.sqlite3", (err) => {
   if (err) {
     console.error(err.message);
@@ -25,7 +23,6 @@ const db = new sqlite3.Database("./db.sqlite3", (err) => {
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  const is_secure = req.body.is_secure === undefined ? true : req.body.is_secure;
 
   if (!username || !password) {
     return res.status(401).send("Username or password is empty!");
@@ -47,7 +44,7 @@ app.post("/login", (req, res) => {
           jwt,
           utils.HEADER,
           payload,
-          is_secure ? utils.SECURE_SECRET_KEY : utils.SECRET_KEY
+          utils.CURRENT_KEY
         );
         return res.status(200).send(token);
       } else {
@@ -71,7 +68,7 @@ app.get("/verify-decode/secure/posts", (req, res) => {
   if (token) {
     jwt.verify(
       token,
-      utils.SECURE_SECRET_KEY,
+      utils.CURRENT_KEY,
       { algorithms: ["HS256"] },
       (err, decoded) => {
         if (err) {
@@ -93,10 +90,10 @@ app.get("/verify-decode/secure/posts", (req, res) => {
 
 app.delete("/verify-decode/secure/posts/:id", (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
-if (token) {
+  if (token) {
     jwt.verify(
       token,
-      utils.SECURE_SECRET_KEY,
+      utils.CURRENT_KEY,
       { algorithms: ["HS256"] },
       (err, decoded) => {
         if (err) {
@@ -206,6 +203,25 @@ app.post("/crack-secret", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+app.post("/create_token", (req, res) => {
+  const header = req.body.header;
+  const payload = req.body.payload;
+  const secret = req.body.secret;
+
+  if (!header) {
+    return res.status(400).send("Header is empty!");
+  }
+  if (!payload) {
+    return res.status(400).send("Payload is empty!");
+  }
+  if (!secret) {
+    return res.status(400).send("Secret is empty!");
+  }
+
+  const token = utils.create_jwt_token(jwt, header, payload, secret);
+  res.status(200).send(token);
+});
+
+app.listen(utils.PORT, () => {
+  console.log(`App listening at http://localhost:${utils.PORT}`);
 });

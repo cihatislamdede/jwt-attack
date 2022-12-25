@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   const [token, setToken] = useState("");
-  
+
   const login = async () => {
     if (
       !document.getElementById("username").value ||
@@ -20,7 +20,6 @@ export default function LoginPage() {
       body: JSON.stringify({
         username: document.getElementById("username").value,
         password: document.getElementById("password").value,
-        is_secure: document.getElementById("issecure").checked,
       }),
     });
     const text = await response.text();
@@ -52,12 +51,6 @@ export default function LoginPage() {
                   }
                 }}
               />
-              <div className="flex flex-row justify-center align-middle">
-                <input className="w-4" type={"checkbox"} id={"issecure"} defaultChecked={true} />
-                <label className="text-2xl mx-2" htmlFor={"issecure"}>
-                  Secure
-                </label>
-              </div>
               <button
                 className="m-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
@@ -71,6 +64,11 @@ export default function LoginPage() {
                 </div>
               ) : null}
             </div>
+            <p className="text-sm">
+              admin:admin
+              <br /> or <br />
+              user:user
+            </p>
           </form>
           <Link to={`/`}>
             <button
