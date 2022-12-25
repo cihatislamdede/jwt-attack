@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   const [token, setToken] = useState("");
+  
   const login = async () => {
     if (
       !document.getElementById("username").value ||
@@ -23,7 +24,6 @@ export default function LoginPage() {
       }),
     });
     const text = await response.text();
-    console.log(text);
     setToken(text);
     localStorage.setItem("token", text);
   };
@@ -35,14 +35,14 @@ export default function LoginPage() {
           <form className="mt-4 w-36 md:w-64 mx-auto text-2xl">
             <div>
               <input
-                className="placeholder:text-center mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="placeholder:text-center text-center mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder="Username"
                 id="username"
               />
 
               <input
-                className="placeholder:text-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="placeholder:text-center text-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="password"
                 placeholder="Password"
                 id="password"
@@ -53,7 +53,7 @@ export default function LoginPage() {
                 }}
               />
               <div className="flex flex-row justify-center align-middle">
-                <input className="w-4" type={"checkbox"} id={"issecure"} />
+                <input className="w-4" type={"checkbox"} id={"issecure"} defaultChecked={true} />
                 <label className="text-2xl mx-2" htmlFor={"issecure"}>
                   Secure
                 </label>
@@ -68,7 +68,6 @@ export default function LoginPage() {
               {token ? (
                 <div className="max-w-md">
                   <p className="text-sm break-all">Token: {token}</p>
-                  <p className="text-md">localstorage set!</p>
                 </div>
               ) : null}
             </div>

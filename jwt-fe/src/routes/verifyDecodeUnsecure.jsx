@@ -31,12 +31,9 @@ export default function VerifyDecodeUnsecurePage() {
         //check if user is admin
         if (decodedToken.isAdmin === 1) {
           setIsAdmin(true);
-          console.log("You are an admin");
         } else {
           setIsAdmin(false);
-          console.log("You are not an admin");
         }
-        console.log(data);
       } catch (error) {
         console.log(error);
         alert("You are not authorized to view this page");

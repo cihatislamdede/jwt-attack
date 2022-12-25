@@ -34,6 +34,14 @@ export default function RootPage() {
         >
           <Link to={`crack`}>Crack Secret</Link>
         </button>
+        <a href="https://jwt.io/#debugger-io" target="_blank" rel="noreferrer">
+          <button
+            type="button"
+            className="py-2 mt-8 px-4 text-2xl font-medium bg-transparent rounded border dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-blue-700 dark:focus:bg-gray-700 transition-all"
+          >
+            JWT IO
+          </button>
+        </a>
       </div>
       <p className="text-center mt-16 italic">
         19011047 - Cihat İslam Dede
