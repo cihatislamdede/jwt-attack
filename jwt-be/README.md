@@ -12,5 +12,5 @@ $ npm install
 
 ##### Running the app
 ```console
-$ npm run start
+$ node index.js
 ```
