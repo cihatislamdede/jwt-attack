@@ -36,8 +36,7 @@ const SECURE_SECRET_KEY = "6b21c17bec069571d2abbd2a2d9abd22eb0105c4bcfb2393b93cf
 1. 2015, RFC 7515: JSON Web Signature (JWS),
 https://www.rfc-editor.org/rfc/rfc7515
 2. Attacking and Securing JWT,
-https://owasp.org/www-chapter-vancouver/assets/presentations/2020-01_Attac
-king_and_Securing_JWT.pdf
+https://owasp.org/www-chapter-vancouver/assets/presentations/2020-01_Attacking_and_Securing_JWT.pdf
 3. https://jwt.io
 4. 2015, RFC 7518: JSON Web Algorithms (JWA),
 https://www.rfc-editor.org/rfc/rfc7518#section-3.2
