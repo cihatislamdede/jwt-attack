@@ -10,7 +10,12 @@ Before installing, [download and install Node.js](https://nodejs.org/en/download
 $ npm install
 ```
 
+##### Initialize the database
+``` 
+remove the comment of line 19 in index.js
+```
+
 ##### Running the app
 ```console
-$ node index.js
+$ npm run start
 ```
