@@ -41,4 +41,4 @@ king_and_Securing_JWT.pdf
 3. https://jwt.io
 4. 2015, RFC 7518: JSON Web Algorithms (JWA),
 https://www.rfc-editor.org/rfc/rfc7518#section-3.2
-5. https://github.com/wallarm/jwt-secrets/blob/master/jwt.secrets.lis
+5. https://github.com/wallarm/jwt-secrets/blob/master/jwt.secrets.list
